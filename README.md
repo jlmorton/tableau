@@ -18,6 +18,8 @@ This library uses the Tableau SDK to create and publish Tableau extracts.  This 
 
 Instead, there is a small shell script included in this repository, `bin/install_tableau_sdk.sh`.  This shell script will download the SDK, extract it to the `lib` folder within the top-level repository directory, and then `mvn install` the Java dependencies to your local Maven installation.
 
+The utility requires Java 8.
+
 # Installation
 Download the release distribution and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
 
