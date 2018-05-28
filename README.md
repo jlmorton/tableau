@@ -24,6 +24,22 @@ Download the release distribution and unzip.  Run the `install_tableau_sdk.sh` t
 # Building
 After installing the Tableau SDK, simply run `mvn install`
 
+# Schema
+This utility expects a schema file which describes the data types in the CSV file.  The schema is in JSON format.  The utility handles strings (`CHAR_STRING`), booleans (`BOOLEAN`), dates (`DATE`), date & times (`DATETIME`), integers (`INTEGER`) and doubles (`DOUBLE`).
+
+Here is a sample schema file:
+```{
+  "schemaName": "Sample",
+  "schema": {
+    "foo": "CHAR_STRING",
+    "bar": "INTEGER",
+    "baz": "BOOLEAN",
+    "bax": "DOUBLE",
+    "test": "DATE",
+    "test_time": "DATETIME"
+  }
+}```
+
 # Usage
 ```
   usage: java -jar tableau.jar
