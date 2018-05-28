@@ -28,7 +28,8 @@ After installing the Tableau SDK, simply run `mvn install`
 This utility expects a schema file which describes the data types in the CSV file.  The schema is in JSON format.  The utility handles strings (`CHAR_STRING`), booleans (`BOOLEAN`), dates (`DATE`), date & times (`DATETIME`), integers (`INTEGER`) and doubles (`DOUBLE`).
 
 Here is a sample schema file:
-```{
+```
+{
   "schemaName": "Sample",
   "schema": {
     "foo": "CHAR_STRING",
@@ -38,7 +39,8 @@ Here is a sample schema file:
     "test": "DATE",
     "test_time": "DATETIME"
   }
-}```
+}
+```
 
 # Usage
 ```
