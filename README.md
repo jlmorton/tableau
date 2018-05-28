@@ -5,6 +5,12 @@ The Tableau Extract API is not thread-safe when inserting a row to the extract, 
 
 Included in the utility is a thin wrapper to publish an extract to Tableau.
 
+# Performance
+On my dual-core Macbook Pro, I see the following performance:
+ 1 Thread: 28,286 rows/second
+ 2 Threads: 40,072 rows/second
+ 3 Threads: 44,624 rows/second
+
 # Dependencies
 
 This library uses the Tableau SDK to create and publish Tableau extracts.  This SDK is not available in Central Maven repositories.  The SDK license allows distribution, but I've chosen to exclude it from this repository.
@@ -13,6 +19,9 @@ Instead, there is a small shell script included in this repository, `bin/install
 
 # Installation
 Download the release distribution and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
+
+# Building
+After installing the Tableau SDK, simply run `mvn install`
 
 # Usage
 ```
