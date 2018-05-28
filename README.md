@@ -15,7 +15,7 @@ Instead, there is a small shell script included in this repository, `bin/install
 Download the release distribution and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
 
 # Usage
-
+`
 usage: java -jar tableau.jar
  -a,--append             Append to existing extract
  -c,--project <arg>      Project name to publish to
@@ -32,13 +32,13 @@ usage: java -jar tableau.jar
  -s,--site <arg>         Tableau site name to publish
  -t,--threads <arg>      Number of threads (default: 1)
  -u,--url <arg>          Tableau Server URL for publishing
- -x,--password <arg>     Tableau Server password for publishing
+ -x,--password <arg>     Tableau Server password for publishing`
  
 ## Creating an Extract
-`./bin/extract.sh -e MyExtract.tde -s samples/test.schema -f samples/test.csv -t 2`
+`./bin/extract.sh -o MyExtract.tde -s samples/test.schema -f samples/test.csv -t 2`
 
 ## Publishing an Extract
-`./bin/publish.sh -e MyExtract.tde-u https://my-tableau-server -n username	-x password -s tableau-site-name -p project-name -d datasource-name`
+`./bin/publish.sh -e MyExtract.tde -u https://my-tableau-server -n username	-x password -s tableau-site-name -p project-name -d datasource-name`
 
 Note: If you require using a proxy server to publish the extracts, the Tableau SDK resepects the standard `http_proxy` and `https_proxy` environment variables to specify the proxy server.  The SDK also exposes hooks to set the proxy username and password, but this wrapper does not currently implement that.
 
