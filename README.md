@@ -82,3 +82,6 @@ Here is a sample schema file:
 Note: If you require using a proxy server to publish the extracts, the Tableau SDK resepects the standard `http_proxy` and `https_proxy` environment variables to specify the proxy server.  The SDK also exposes hooks to set the proxy username and password, but this wrapper does not currently implement that.
 
 The Tableau Server user used to publish the SDK must have permission to publish a datasource.
+
+# License
+This software is licensed under the Apache 2.0 license.
