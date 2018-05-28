@@ -6,12 +6,19 @@ The Tableau Extract API is not thread-safe when inserting a row to the extract, 
 Included in the utility is a thin wrapper to publish an extract to Tableau.
 
 # Performance
-On my dual-core Macbook Pro, I see the following performance:
+On my small dual core Macbook Pro, I see the following performance:
 ```
  1 Thread: 28,286 rows/second
  2 Threads: 40,072 rows/second
  3 Threads: 44,624 rows/second
 ```
+# Platforms
+I have tested this on CentOS 7, and OS X High Sierra.  The Tableau SDK supports Fedora 18 and later, CentOS 7 and later, and Ubuntu 12.04 and later.  Support for CentOS 6 was removed from the Tableau SDK in version 10.2 of the SDK.
+
+If you encounter a problem such as `java.lang.UnsatisfiedLinkError: Unable to load library TableauCommon: /lib64/libc.so.6: version 'GLIBC_2.14' not found`, your OS is unfortunately not supported.  Docker containers may help in this situation.
+
+I have not tested this on Windows.  Certainly the various shell scripts will not work, but you should be able to install the SDK for Windows and invoke Java directly.  Any pull requests to add better support for Windows would be appreciated.
+
 # Dependencies
 
 This library uses the Tableau SDK to create and publish Tableau extracts.  This SDK is not available in Central Maven repositories.  The SDK license allows distribution, but I've chosen to exclude it from this repository.
