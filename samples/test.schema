@@ -1,0 +1,11 @@
+{
+  "schemaName": "Sample",
+  "schema": {
+    "foo": "CHAR_STRING",
+    "bar": "INTEGER",
+    "baz": "BOOLEAN",
+    "bax": "DOUBLE",
+    "test": "DATE",
+    "test_time": "DATETIME"
+  }
+}

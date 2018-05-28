@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="MyApp" packages="">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout
+                    pattern="%d{DEFAULT} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        <File name="Rejects" fileName="logs/rejects.log">
+            <PatternLayout>
+                <Pattern>%d %m%n</Pattern>
+            </PatternLayout>
+        </File>
+        <Async name="Async">
+            <AppenderRef ref="Rejects"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+        <logger name="Rejects" level="info" additivity="false">
+                <AppenderRef ref="Rejects" />
+        </logger>
+    </Loggers>
+</Configuration>
