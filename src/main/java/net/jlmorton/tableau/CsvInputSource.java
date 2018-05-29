@@ -4,8 +4,6 @@ import com.univocity.parsers.csv.CsvParser;
 import com.univocity.parsers.csv.CsvParserSettings;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -36,17 +34,17 @@ public class CsvInputSource implements RowInputSource {
     }
 
     @Override
-    public List<String> getNextRow() {
+    public String[] getNextRow() {
         rowCounter.getAndIncrement();
 
         if (!Objects.isNull(previouslyParsedRow)) {
             String[] tmp = previouslyParsedRow;
             previouslyParsedRow = null;
 
-            return Arrays.asList(tmp);
+            return tmp;
         }
 
-        return Arrays.asList(csvParser.parseNext());
+        return csvParser.parseNext();
     }
 
     private CsvParser getCsvParser() {

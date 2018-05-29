@@ -7,8 +7,10 @@ ARCHIVE = ${NAME}-${VERSION}.zip
 TARGET = target
 SAMPLES = samples
 BIN_DIR = bin
+DOCKER_DIR = docker
+DOCKER_REPOSITORY = jlmorton
 
-all: mkdir copy_files archive
+all: mkdir copy_files archive docker
 
 mkdir:
 	${MKDIR_P} ${BUILD_DIR}/bin
@@ -27,4 +29,15 @@ archive:
 
 clean:
 	rm -rf ${BUILD_DIR}
+	rm -rf ${DOCKER_DIR}/${BUILD_DIR}
 	rm -f ${ARCHIVE}
+	rm -f ${DOCKER_DIR}/Dockerfile
+	rm -f ${DOCKER_DIR}/*.jar
+	rm -f ${DOCKER_DIR}/*.zip
+	rm -rf tmp
+	rm -rf lib
+
+generate_docker: all
+	cp -a ${BUILD_DIR} ${DOCKER_DIR}/
+	sed -e s/%ARTIFACT_DIR%/${BUILD_DIR}/ ${DOCKER_DIR}/Dockerfile.txt > ${DOCKER_DIR}/Dockerfile
+	docker build -t ${DOCKER_REPOSITORY}/${NAME}:${VERSION} ${DOCKER_DIR}

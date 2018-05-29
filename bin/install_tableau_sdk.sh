@@ -8,6 +8,13 @@ TMP_SDK_NAME="$TMP/TableauSDK.tar.gz"
 TABLEAU64_SDK_URL="https://downloads.tableau.com/tssoftware/Tableau-SDK-Linux-64Bit-10-3-11.tar.gz"
 TABLEAU32_SDK_URL="https://downloads.tableau.com/tssoftware/Tableau-SDK-Linux-32Bit-10-3-11.tar.gz"
 
+usage() { echo "Usage: $0 [-w without Maven]"; }
+while getopts ":w" i; do
+    case "${i}" in
+	w) WITHOUT_MAVEN=1;;
+    esac
+done	
+
 function download() {
 	URL=$1
 	if type wget &>/dev/null; then
@@ -19,6 +26,9 @@ function download() {
 		exit 1
 	fi
 }
+
+mkdir -p $TMP
+mkdir -p $LIB_DIR
 
 MACHINE_TYPE=`uname -m`
 echo "==============================================="
@@ -38,8 +48,10 @@ fi;
 echo "Extracting Tableau SDK to $LIB_DIR"
 tar -C $LIB_DIR -xzf $TMP_SDK_NAME
 
-echo "Installing Maven Dependencies"
-mvn install:install-file -Dfile=$JAVA_SDK_DIR/jna.jar -DgroupId=com.sun.jna -DartifactId=jna -Dversion=3.5.1 -Dpackaging=jar 
-mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableaucommon.jar -DgroupId=com.tableausoftware -DartifactId=tableau-common -Dversion=10.3.11 -Dpackaging=jar 
-mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableauextract.jar -DgroupId=com.tableausoftware -DartifactId=tableau-extract -Dversion=10.3.11 -Dpackaging=jar 
-mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableauserver.jar -DgroupId=com.tableausoftware -DartifactId=tableau-server -Dversion=10.3.11 -Dpackaging=jar 
+if [ -z $WITHOUT_MAVEN ]; then
+	echo "Installing Maven Dependencies"
+	mvn install:install-file -Dfile=$JAVA_SDK_DIR/jna.jar -DgroupId=com.sun.jna -DartifactId=jna -Dversion=3.5.1 -Dpackaging=jar 
+	mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableaucommon.jar -DgroupId=com.tableausoftware -DartifactId=tableau-common -Dversion=10.3.11 -Dpackaging=jar 
+	mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableauextract.jar -DgroupId=com.tableausoftware -DartifactId=tableau-extract -Dversion=10.3.11 -Dpackaging=jar 
+	mvn install:install-file -Dfile=$JAVA_SDK_DIR/tableauserver.jar -DgroupId=com.tableausoftware -DartifactId=tableau-server -Dversion=10.3.11 -Dpackaging=jar 
+fi

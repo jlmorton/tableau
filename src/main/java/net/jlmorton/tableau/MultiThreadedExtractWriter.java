@@ -5,7 +5,6 @@ import com.tableausoftware.extract.Row;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
 import java.util.concurrent.*;
 
 public class MultiThreadedExtractWriter implements ExtractWriter {
@@ -30,8 +29,11 @@ public class MultiThreadedExtractWriter implements ExtractWriter {
 
             LOGGER.info("Parsing Rows");
             while (getRowInputSource().hasNext()) {
-                logProgress(getRowInputSource().getCurrentRowNumber());
-                threadPoolExecutor.submit(() -> parseAndInsertRow(getRowInputSource().getNextRow(), getRowInputSource().getCurrentRowNumber()));
+                int currentRowNumber = getRowInputSource().getCurrentRowNumber();
+                String[] textRow = getRowInputSource().getNextRow();
+
+                logProgress(currentRowNumber);
+                threadPoolExecutor.submit(() -> parseAndInsertRow(textRow, currentRowNumber));
             }
 
             threadPoolExecutor.shutdown();
@@ -49,7 +51,7 @@ public class MultiThreadedExtractWriter implements ExtractWriter {
         getExtractAdapter().closeExtract();
     }
 
-    private void parseAndInsertRow(List<String> textRow, int rowIndex) {
+    private void parseAndInsertRow(String[] textRow, int rowIndex) {
         try {
             final Row row = RowWriter.parseAndCreateRow(textRow, getExtractAdapter().getTableDefinition());
             getExtractAdapter().insertRow(row);
@@ -61,7 +63,7 @@ public class MultiThreadedExtractWriter implements ExtractWriter {
     }
 
     private void logProgress(int currentRowParsed) {
-        if ((currentRowParsed % 10000) == 0) {
+        if (currentRowParsed > 0 && (currentRowParsed % 10000) == 0) {
             LOGGER.info("Inserted {} rows to {}", currentRowParsed, getSchema().getName());
         }
     }

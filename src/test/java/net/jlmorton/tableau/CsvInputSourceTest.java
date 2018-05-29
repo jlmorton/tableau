@@ -12,11 +12,11 @@ public class CsvInputSourceTest {
         File sampleCsvFile = new File(getClass().getResource("sample-extract.csv").getFile());
         CsvInputSource csvInputSource = new CsvInputSource(sampleCsvFile);
 
-        assertEquals("100", csvInputSource.getNextRow().get(1));
+        assertEquals("100", csvInputSource.getNextRow()[1]);
         assertTrue(csvInputSource.hasNext());
         assertTrue(csvInputSource.hasNext());
         assertTrue(csvInputSource.hasNext());
         assertTrue(csvInputSource.hasNext());
-        assertEquals("200", csvInputSource.getNextRow().get(1));
+        assertEquals("200", csvInputSource.getNextRow()[1]);
     }
 }

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
 public class RowWriter {
@@ -19,10 +18,10 @@ public class RowWriter {
     private RowWriter() {
     }
 
-    static Row parseAndCreateRow(List<String> row, TableDefinition tableDefinition) throws TableauException {
+    static Row parseAndCreateRow(String[] row, TableDefinition tableDefinition) throws TableauException {
         Row tableauRow = new Row(tableDefinition);
-        for (int i = 0; i < row.size(); i++) {
-            setRowData(tableauRow, i, tableDefinition.getColumnType(i), row.get(i));
+        for (int i = 0; i < row.length; i++) {
+            setRowData(tableauRow, i, tableDefinition.getColumnType(i), row[i]);
         }
         return tableauRow;
     }

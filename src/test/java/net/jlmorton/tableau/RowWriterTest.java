@@ -5,9 +5,6 @@ import com.tableausoftware.extract.Row;
 import com.tableausoftware.extract.TableDefinition;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertNotNull;
 
 public class RowWriterTest {
@@ -18,7 +15,7 @@ public class RowWriterTest {
         tableDefinition.addColumn("foo_date", Type.DATE);
         tableDefinition.addColumn("foo_int", Type.INTEGER);
 
-        List<String> textRow = Arrays.asList("bar", "2017-05-01", "100");
+        String[] textRow = new String[]{"bar", "2017-05-01", "100"};
         Row row = RowWriter.parseAndCreateRow(textRow, tableDefinition);
 
         assertNotNull(row);
