@@ -12,7 +12,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-class RowWriter {
+@SuppressWarnings("WeakerAccess")
+public class RowWriter {
     private static final ThreadLocal<Calendar> calendarRef = ThreadLocal.withInitial(GregorianCalendar::new);
 
     private RowWriter() {
@@ -35,8 +36,7 @@ class RowWriter {
         switch (columnType) {
             case DATE:
                 cal.setTime(DateParser.parse(text));
-                // January == 0
-                row.setDate(columnIndex, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
+                row.setDate(columnIndex, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH)); // January = 0
                 break;
 
             case DATETIME:

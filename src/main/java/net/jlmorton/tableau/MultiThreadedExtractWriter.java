@@ -30,9 +30,8 @@ public class MultiThreadedExtractWriter implements ExtractWriter {
 
             LOGGER.info("Parsing Rows");
             while (getRowInputSource().hasNext()) {
-                List<String> row = getRowInputSource().getNextRow();
                 logProgress(getRowInputSource().getCurrentRowNumber());
-                threadPoolExecutor.submit(() -> parseAndInsertRow(row, getRowInputSource().getCurrentRowNumber()));
+                threadPoolExecutor.submit(() -> parseAndInsertRow(getRowInputSource().getNextRow(), getRowInputSource().getCurrentRowNumber()));
             }
 
             threadPoolExecutor.shutdown();

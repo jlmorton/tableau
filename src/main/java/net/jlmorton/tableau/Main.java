@@ -39,7 +39,8 @@ public class Main {
         LOGGER.info("Tableau Project Name: {}", properties.getTableauProjectName());
         LOGGER.info("Tableau Datasource Name: {}", properties.getTableauDatasourceName());
 
-        Publisher.publish(properties);
+        Publisher publisher = new TableauSdkPublisher(properties);
+        publisher.publish();
     }
 
     private static void createExtract(Properties properties) throws TableauException {
