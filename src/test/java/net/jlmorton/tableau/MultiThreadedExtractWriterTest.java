@@ -9,17 +9,25 @@ import org.junit.Test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class ExtractWriterImplTest {
+public class MultiThreadedExtractWriterTest {
     @Test
     public void testCreateExtract() throws Exception {
-        String sampleSchemaFileName = getClass().getResource("sample-schema.json").getFile();
-        Schema sampleSchema = Schema.fromJson(sampleSchemaFileName);
+        String schemaFile = getClass().getResource("sample-schema.json").getFile();
+        Schema schema = Schema.fromJson(schemaFile);
 
+        Properties properties = getProperties(schema);
         RowInputSource rowInputSource = new CsvInputSource(getSampleCsvFile());
-        ExtractWriter extractWriter = new ExtractWriterImpl(sampleSchema, rowInputSource, getProperties());
-        Extract extract = extractWriter.createExtract();
+        TdeExtractAdapter extractAdapter = new TdeExtractAdapter(properties);
+
+        ExtractWriter extractWriter = new MultiThreadedExtractWriter(properties, rowInputSource, extractAdapter);
+        extractWriter.writeExtract();
+
+        Extract extract = extractAdapter.getExtract();
+
         assertNotNull(extract);
-        assertTrue(extract.hasTable("Extract"));
+        assertTrue(extract.hasTable(extractAdapter.getTableName()));
+
+        extractWriter.closeExtract();
     }
 
     private String getTemporaryFilePath() {
@@ -38,11 +46,11 @@ public class ExtractWriterImplTest {
         return new File(this.getClass().getResource("sample-extract.csv").getFile());
     }
 
-    private Properties getProperties() {
+    private Properties getProperties(Schema schema) {
         return new Properties() {
             @Override
-            public String getSchemaPath() {
-                return getClass().getResource("sample-schema.json").getFile();
+            public Schema getSchema() {
+                return schema;
             }
 
             @Override
@@ -100,10 +108,6 @@ public class ExtractWriterImplTest {
                 return false;
             }
 
-            @Override
-            public boolean isAppend() {
-                return false;
-            }
         };
     }
 }

@@ -19,7 +19,7 @@ public class RowWriterTest {
         tableDefinition.addColumn("foo_int", Type.INTEGER);
 
         List<String> textRow = Arrays.asList("bar", "2017-05-01", "100");
-        Row row = RowWriter.createRow(textRow, tableDefinition);
+        Row row = RowWriter.parseAndCreateRow(textRow, tableDefinition);
 
         assertNotNull(row);
     }

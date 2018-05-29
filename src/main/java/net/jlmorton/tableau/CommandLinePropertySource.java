@@ -1,10 +1,15 @@
 package net.jlmorton.tableau;
 
 import org.apache.commons.cli.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
+import java.io.IOException;
 
 class CommandLinePropertySource {
+    private static final Logger LOGGER = LogManager.getLogger(CommandLinePropertySource.class);
+
     private final String[] args;
 
     CommandLinePropertySource(String... args) {
@@ -16,8 +21,9 @@ class CommandLinePropertySource {
 
         return new Properties() {
             @Override
-            public String getSchemaPath() {
-                return commandLine.getOptionValue("schema");
+            public Schema getSchema() {
+                String schemaPath = commandLine.getOptionValue("schema");
+                return createSchemaFromJson(schemaPath);
             }
 
             @Override
@@ -79,11 +85,16 @@ class CommandLinePropertySource {
                 return commandLine.hasOption("extract");
             }
 
-            @Override
-            public boolean isAppend() {
-                return commandLine.hasOption("append");
-            }
         };
+    }
+
+    private Schema createSchemaFromJson(String schemaPath) {
+        try {
+            return Schema.fromJson(schemaPath);
+        } catch (IOException e) {
+            LOGGER.error("Error creating schema with path {}", schemaPath, e);
+            throw new RuntimeException(e);
+        }
     }
 
     private CommandLine parseCommandLineOptions() {
@@ -97,6 +108,7 @@ class CommandLinePropertySource {
 
             return commandLine;
         } catch (ParseException e) {
+            LOGGER.error("Could not parse command line options", e);
             throw new RuntimeException("Could not parse command line options", e);
         }
     }
@@ -105,13 +117,11 @@ class CommandLinePropertySource {
         Options options = new Options();
         options.addOption("s", "schema", true, "Schema file for extract");
         options.addOption("f", "file", true, "CSV file to import");
-        options.addOption("a", "append", false, "Append to existing extract");
-        options.addOption("o", "output", true, "Output file name, or name of existing extract in append mode");
         options.addOption("t", "threads", true, "Number of threads (default: 1)");
         options.addOption("p", "publish", false, "Publish an extract to Tableau (requires --extract, --site, --project, --datasource, --username --password, and --url,");
         options.addOption("s", "site", true, "Tableau site name to publish");
         options.addOption("c", "project", true, "Project name to publish to");
-        options.addOption("e", "extract", true, "Filename of extract to publish");
+        options.addOption("e", "extract", true, "Filename of extract");
         options.addOption("d", "datasource", true, "Name of datasource to publish");
         options.addOption("u", "url", true, "Tableau Server URL for publishing");
         options.addOption("n", "username", true, "Tableau Server username for publishing");

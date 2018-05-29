@@ -1,13 +1,11 @@
 package net.jlmorton.tableau;
 
 import com.tableausoftware.TableauException;
-import com.tableausoftware.extract.Extract;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class Main {
@@ -44,21 +42,20 @@ public class Main {
         Publisher.publish(properties);
     }
 
-    private static void createExtract(Properties properties) throws IOException {
+    private static void createExtract(Properties properties) throws TableauException {
         validatePropertiesForExtract(properties);
 
-        Schema schema = Schema.fromJson(properties.getSchemaPath());
-
-        LOGGER.info("Creating Extract {}", schema.getName());
+        LOGGER.info("Creating Extract {}", properties.getSchema().getName());
         LOGGER.info("CSV File Path: {}", properties.getCsvFile());
         LOGGER.info("Extract Path: {}", properties.getExtractFilePath());
         LOGGER.info("Number of Threads: {}", properties.getNumberOfThreads());
 
         RowInputSource rowInputSource = new CsvInputSource(properties.getCsvFile());
+        ExtractAdapter extractAdapter = new TdeExtractAdapter(properties);
 
-        ExtractWriter extractWriter = new ExtractWriterImpl(schema, rowInputSource, properties);
-        Extract extract = extractWriter.createExtract();
-        extract.close();
+        ExtractWriter extractWriter = new MultiThreadedExtractWriter(properties, rowInputSource, extractAdapter);
+        extractWriter.writeExtract();
+        extractWriter.closeExtract();
     }
 
     private static void validatePropertiesForPublishing(Properties properties) {
@@ -84,7 +81,7 @@ public class Main {
     private static void validatePropertiesForExtract(Properties properties) {
         boolean hasExtractPath = !Objects.isNull(properties.getExtractFilePath());
         boolean hasCsvFilePath = !Objects.isNull(properties.getCsvFile());
-        boolean hasSchemaPath = StringUtils.isNotBlank(properties.getSchemaPath());
+        boolean hasSchemaPath = !Objects.isNull(properties.getSchema());
 
         if (!(hasExtractPath && hasCsvFilePath && hasSchemaPath)) {
             LOGGER.error("Must provide extract path, CSV file path, and Schema path when creating an extract");

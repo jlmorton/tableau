@@ -1,7 +1,9 @@
 package net.jlmorton.tableau;
 
-import com.tableausoftware.extract.Extract;
+import com.tableausoftware.TableauException;
 
 public interface ExtractWriter {
-    Extract createExtract();
+    void writeExtract() throws TableauException;
+
+    void closeExtract();
 }

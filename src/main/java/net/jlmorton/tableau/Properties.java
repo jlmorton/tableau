@@ -3,7 +3,7 @@ package net.jlmorton.tableau;
 import java.io.File;
 
 public interface Properties {
-    String getSchemaPath();
+    Schema getSchema();
 
     File getCsvFile();
 
@@ -26,6 +26,4 @@ public interface Properties {
     boolean isPublish();
 
     boolean isExtract();
-
-    boolean isAppend();
 }

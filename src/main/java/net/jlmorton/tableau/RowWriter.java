@@ -18,7 +18,7 @@ class RowWriter {
     private RowWriter() {
     }
 
-    static Row createRow(List<String> row, TableDefinition tableDefinition) throws TableauException {
+    static Row parseAndCreateRow(List<String> row, TableDefinition tableDefinition) throws TableauException {
         Row tableauRow = new Row(tableDefinition);
         for (int i = 0; i < row.size(); i++) {
             setRowData(tableauRow, i, tableDefinition.getColumnType(i), row.get(i));
