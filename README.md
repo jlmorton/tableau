@@ -5,7 +5,7 @@ The Tableau Extract API is not thread-safe when inserting a row to the extract, 
 
 Included in the utility is a thin wrapper to publish an extract to Tableau.
 
-The latest version is 1.0, which is [available here](https://github.com/jlmorton/tableau/releases/download/1.0/tableau-sdk-wrapper-1.0.zip).
+The latest version is 1.0, which is [available here](https://github.com/jlmorton/tableau/releases/download/1.1/tableau-sdk-wrapper-1.1.zip).
 
 # Performance
 On my small dual core Macbook Pro, I see the following performance:
@@ -30,7 +30,7 @@ Instead, there is a small shell script included in this repository, `bin/install
 The utility requires Java 8.
 
 # Installation
-Download the [current release distribution](https://github.com/jlmorton/tableau/releases/download/1.0/tableau-sdk-wrapper-1.0.zip) and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
+Download the [current release distribution](https://github.com/jlmorton/tableau/releases/download/1.1/tableau-sdk-wrapper-1.1.zip) and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
 
 # Building
 After installing the Tableau SDK, simply run `mvn install`
