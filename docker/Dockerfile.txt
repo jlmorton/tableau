@@ -6,4 +6,5 @@ RUN apt-get update -y && apt-get install -y openjdk-8-jdk-headless libglib2.0 wg
 
 ADD %ARTIFACT_DIR% /opt/tableau-sdk-wrapper
 
-RUN /opt/tableau-sdk-wrapper/bin/install_tableau_sdk.sh -w
+RUN /opt/tableau-sdk-wrapper/bin/install_tableau_sdk.sh -w && \
+    rm -f /opt/tableau-sdk-wrapper/tmp/TableauSDK.tar.gz

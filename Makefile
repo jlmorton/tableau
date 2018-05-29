@@ -1,6 +1,6 @@
 MKDIR_P = mkdir -p
 NAME = tableau-sdk-wrapper
-VERSION = 1.1
+VERSION = 1.2
 BUILD_DIR = ${NAME}-${VERSION}
 ARTIFACT = tableau-${VERSION}.jar
 ARCHIVE = ${NAME}-${VERSION}.zip
@@ -20,7 +20,9 @@ mkdir:
 	${MKDIR_P} ${BUILD_DIR}/logs
 
 copy_files:
-	cp ${TARGET}/${ARTIFACT} ${BUILD_DIR}/lib
+	mkdir -p lib
+	cp ${TARGET}/${ARTIFACT} lib/
+	cp ${TARGET}/${ARTIFACT} ${BUILD_DIR}/lib/
 	cp -a ${SAMPLES}/* ${BUILD_DIR}/samples/
 	cp -a ${BIN_DIR}/* ${BUILD_DIR}/bin/
 

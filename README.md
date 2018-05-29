@@ -14,12 +14,31 @@ On my small dual core Macbook Pro, I see the following performance:
  2 Threads: 40,072 rows/second
  3 Threads: 44,624 rows/second
 ```
+
+On my 4-core 2015 iMac, I see the following performance:
+```
+ 1 Thread: 37,034 rows/s
+ 2 Threads: 53,494 rows/s
+ 3 Threads: 60,181 rows/s
+ 4 Threads: 66,868 rows/s
+```
+
 # Platforms
 I have tested this on CentOS 7, and OS X High Sierra.  The Tableau SDK supports Fedora 18 and later, CentOS 7 and later, and Ubuntu 12.04 and later.  Support for CentOS 6 was removed from the Tableau SDK in version 10.2 of the SDK.
 
-If you encounter a problem such as `java.lang.UnsatisfiedLinkError: Unable to load library TableauCommon: /lib64/libc.so.6: version 'GLIBC_2.14' not found`, your OS is unfortunately not supported.  Docker containers may help in this situation.
+If you encounter a problem such as `java.lang.UnsatisfiedLinkError: Unable to load library TableauCommon: /lib64/libc.so.6: version 'GLIBC_2.14' not found`, your OS is unfortunately not supported.  Consider running in a Docker container (see below). 
 
 I have not tested this on Windows.  Certainly the various shell scripts will not work, but you should be able to install the SDK for Windows and invoke Java directly.  Any pull requests to add better support for Windows would be appreciated.
+
+## Docker
+There are public images for this project in Docker Hub.  You can simple mount a Docker volume, and invoke this utility within the container.  For example, assuming you have a folder called "Tableau" within your home directory:
+```
+docker run --rm -it -v ~/tableau:/build \
+  jlmorton/tableau-sdk-wrapper:latest \
+  /opt/tableau-sdk-wrapper/bin/extract.sh -o /build/sample.tde -s /build/sample.schema -f /build/sample.csv -t 4
+```
+
+This will download the latest image from Docker Hub, run a container, and attempt to build a TDE extract using the "sample.csv" and "sample.schema" within your ~/tableau folder.
 
 # Dependencies
 

@@ -2,7 +2,7 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/.."
 LIB="$DIR/lib"
 MAX_MEMORY="2g"
-JARFILE="$LIB/tableau-1.1.jar"
+JARFILE="$LIB/tableau-1.2.jar"
 SDK_DIR="$LIB/tableausdk-linux64-10300.18.0510.1135"
 JAVA_SDK_DIR="$SDK_DIR/lib64/tableausdk/Java/"
 
