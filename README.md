@@ -5,7 +5,7 @@ The Tableau Extract API is not thread-safe when inserting a row to the extract, 
 
 Included in the utility is a thin wrapper to publish an extract to Tableau.
 
-The latest version is 1.0, which is [available here](https://github.com/jlmorton/tableau/releases/download/1.1/tableau-sdk-wrapper-1.1.zip).
+The latest version is 1.1, which is [available here](https://github.com/jlmorton/tableau/releases/download/1.1/tableau-sdk-wrapper-1.1.zip).
 
 # Performance
 On my small dual core Macbook Pro, I see the following performance:
