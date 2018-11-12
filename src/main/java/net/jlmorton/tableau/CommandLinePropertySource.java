@@ -89,7 +89,7 @@ class CommandLinePropertySource {
 
             @Override
             public boolean isExtract() {
-                return commandLine.hasOption("extract");
+                return commandLine.hasOption("extract") && commandLine.hasOption("file");
             }
 
         };

@@ -1,6 +1,6 @@
 MKDIR_P = mkdir -p
 NAME = tableau-sdk-wrapper
-VERSION = 1.2
+VERSION = 1.2.1
 BUILD_DIR = ${NAME}-${VERSION}
 ARTIFACT = tableau-${VERSION}.jar
 ARCHIVE = ${NAME}-${VERSION}.zip
