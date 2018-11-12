@@ -2,3 +2,9 @@
 target/
 dependency-reduced-pom.xml
 tableau.iml
+tableau-sdk-wrapper*.zip
+logs/
+tableau-sdk-wrapper-*/
+tmp/
+lib/
+DataExtract.log

@@ -15,12 +15,12 @@ public class Main {
         CommandLinePropertySource commandLinePropertySource = new CommandLinePropertySource(args);
         Properties properties = commandLinePropertySource.getProperties();
 
-        if (properties.isExtract()) {
-            createExtract(properties);
-        }
-
         if (properties.isPublish()) {
             publish(properties);
+        }
+
+        if (properties.isExtract()) {
+            createExtract(properties);
         }
 
         if (!properties.isExtract() & !properties.isPublish()) {

@@ -10,7 +10,10 @@ BIN_DIR = bin
 DOCKER_DIR = docker
 DOCKER_REPOSITORY = jlmorton
 
-all: mkdir copy_files archive docker
+all: compile mkdir copy_files archive docker
+
+compile:
+	mvn install
 
 mkdir:
 	${MKDIR_P} ${BUILD_DIR}/bin
@@ -30,6 +33,7 @@ archive:
 	zip -r ${ARCHIVE} ${BUILD_DIR}
 
 clean:
+	mvn clean
 	rm -rf ${BUILD_DIR}
 	rm -rf ${DOCKER_DIR}/${BUILD_DIR}
 	rm -f ${ARCHIVE}

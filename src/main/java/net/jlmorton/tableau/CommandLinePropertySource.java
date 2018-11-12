@@ -1,6 +1,7 @@
 package net.jlmorton.tableau;
 
 import org.apache.commons.cli.*;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -28,7 +29,13 @@ class CommandLinePropertySource {
 
             @Override
             public File getCsvFile() {
-                return new File(commandLine.getOptionValue("file"));
+                String csvFilePath = commandLine.getOptionValue("file");
+
+                if (StringUtils.isBlank(csvFilePath)) {
+                    return null;
+                }
+
+                return new File(csvFilePath);
             }
 
             @Override
