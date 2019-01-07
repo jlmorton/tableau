@@ -1,5 +1,9 @@
 .idea/
 target/
+tmp/
+lib/
+logs/
+DataExtract.log
 dependency-reduced-pom.xml
 tableau.iml
 tableau-sdk-wrapper*.zip
