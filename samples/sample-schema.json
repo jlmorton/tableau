@@ -1,0 +1,9 @@
+{
+  "schemaName": "Sample",
+  "schema": {
+    "foo": "CHAR_STRING",
+    "bar": "INTEGER",
+    "test": "DATE",
+    "test_time": "DATETIME"
+  }
+}

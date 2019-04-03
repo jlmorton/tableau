@@ -31,11 +31,13 @@ If you encounter a problem such as `java.lang.UnsatisfiedLinkError: Unable to lo
 I have not tested this on Windows.  Certainly the various shell scripts will not work, but you should be able to install the SDK for Windows and invoke Java directly.  Any pull requests to add better support for Windows would be appreciated.
 
 ## Docker
-There are public images for this project in Docker Hub.  You can simple mount a Docker volume, and invoke this utility within the container.  For example, assuming you have a folder called "Tableau" within your home directory:
+There are public images for this project in Docker Hub.  You can simple mount a Docker volume, and invoke this utility within the container.  Note that Docker volumes must be an absolute path.  Assuming you've cloned this project to a folder called "tableau" in your home directory, the command below will create a Tableau Extract using a sample CSV and schema: 
 ```
-docker run --rm -it -v ~/tableau:/build \
-  jlmorton/tableau-sdk-wrapper:latest \
-  /opt/tableau-sdk-wrapper/bin/extract.sh -o /build/sample.tde -s /build/sample.schema -f /build/sample.csv -t 4
+PATH_TO_CLONED_PROJECT="~/tableau"
+docker run --rm -it -v $PATH_TO_CLONED_PROJECT:/build jlmorton/tableau-sdk-wrapper:latest /opt/tableau-sdk-wrapper/bin/extract.sh \
+  -o /build/sample.tde \
+  -s /build/samples/sample-schema.json \
+  -f /build/samples/sample-extract.csv -t 4
 ```
 
 This will download the latest image from Docker Hub, run a container, and attempt to build a TDE extract using the "sample.csv" and "sample.schema" within your ~/tableau folder.
