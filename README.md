@@ -51,7 +51,7 @@ Instead, there is a small shell script included in this repository, `bin/install
 The utility requires Java 8.
 
 # Installation
-Download the [current release distribution](https://github.com/jlmorton/tableau/releases/download/1.2.1/tableau-sdk-wrapper-1.2.1.zip) and unzip.  Run the `install_tableau_sdk.sh` to download the Tableau libraries.
+Download the [current release distribution](https://github.com/jlmorton/tableau/releases/download/1.2.1/tableau-sdk-wrapper-1.2.1.zip) and unzip.  On Linux, run the `install_tableau_sdk.sh` to install the Tableau SDK.  Alternatively, be sure to install the [Tableau SDK for your platformn](https://onlinehelp.tableau.com/current/api/extract_api/en-us/Extract/extract_api_installing.htm#downloading) manually.
 
 # Building
 After installing the Tableau SDK, simply run `mvn install`
